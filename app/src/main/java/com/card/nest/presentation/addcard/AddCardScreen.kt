@@ -151,14 +151,11 @@ fun AddCardScreen(
             )
             
             // Card Number
-            OutlinedTextField(
+            CardNumberTextField(
                 value = cardNumber,
                 onValueChange = viewModel::onCardNumberChange,
-                label = { Text("Card Number") },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.fillMaxWidth(),
-                isError = errorMessage != null && cardNumber.length < 13
+                isError = errorMessage != null && cardNumber.text.filter { it.isDigit() }.length < 13
             )
             
             // Expiry

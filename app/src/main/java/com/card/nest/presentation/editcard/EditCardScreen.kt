@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -17,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.card.nest.domain.model.CardNetwork
 import com.card.nest.domain.model.CardType
+import com.card.nest.ui.components.CardNumberTextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -161,14 +163,11 @@ fun EditCardScreen(
                 )
                 
                 // Card Number
-                OutlinedTextField(
+                CardNumberTextField(
                     value = cardNumber,
                     onValueChange = viewModel::onCardNumberChange,
-                    label = { Text("Card Number") },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.fillMaxWidth(),
-                    isError = errorMessage != null && cardNumber.length < 13
+                    isError = errorMessage != null && cardNumber.text.filter { it.isDigit() }.length < 13
                 )
                 
                 // Expiry

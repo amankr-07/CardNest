@@ -198,7 +198,7 @@ class AddCardViewModel(
         _cardType.value = null
         _cardNetwork.value = null
         _cardHolderName.value = ""
-        _cardNumber.value = ""
+        _cardNumber.value = TextFieldValue("")
         _expiryMonth.value = ""
         _expiryYear.value = ""
         _notes.value = ""

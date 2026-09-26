@@ -52,7 +52,7 @@ fun EmptyState(
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = "Add your first debit or credit card\nto keep all your cards in one place.",
+            text = "Add your first debit, credit, or prepaid card\nto keep your cards organized.",
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
             textAlign = TextAlign.Center

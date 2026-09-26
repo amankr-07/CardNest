@@ -67,7 +67,7 @@ class EditCardViewModel(
                 _cardType.value = it.cardType
                 _cardNetwork.value = it.cardNetwork
                 _cardHolderName.value = it.cardHolderName
-                _cardNumber.value = TextFieldValue(formatCardNumber(it.cardNumber))
+                _cardNumber.value = TextFieldValue(it.cardNumber)
                 _expiryMonth.value = String.format("%02d", it.expiryMonth)
                 _expiryYear.value = (it.expiryYear % 100).toString()
                 _notes.value = it.notes
@@ -96,9 +96,8 @@ class EditCardViewModel(
         _errorMessage.value = null
     }
 
-    fun onCardNumberChange(value: String) {
-        val formatted = value.filter { it.isDigit() }.chunked(4).joinToString(" ")
-        _cardNumber.value = formatted.take(19)
+    fun onCardNumberChange(value: TextFieldValue) {
+        _cardNumber.value = value
         _errorMessage.value = null
     }
 
@@ -130,7 +129,7 @@ class EditCardViewModel(
                     cardType = _cardType.value!!,
                     cardNetwork = _cardNetwork.value!!,
                     cardHolderName = _cardHolderName.value.trim(),
-                    cardNumber = _cardNumber.value.replace(" ", ""),
+                    cardNumber = _cardNumber.value.text.filter { it.isDigit() },
                     expiryMonth = _expiryMonth.value.toInt(),
                     expiryYear = 2000 + _expiryYear.value.toInt(),
                     notes = _notes.value.trim()
@@ -167,7 +166,7 @@ class EditCardViewModel(
             return false
         }
 
-        val normalizedCardNumber = _cardNumber.value.replace(" ", "")
+        val normalizedCardNumber = _cardNumber.value.text.filter { it.isDigit() }
         if (normalizedCardNumber.length < 13 || normalizedCardNumber.length > 19) {
             _errorMessage.value = "Please enter a valid card number"
             return false
@@ -218,10 +217,6 @@ class EditCardViewModel(
             alternate = !alternate
         }
         return sum % 10 == 0
-    }
-
-    private fun formatCardNumber(cardNumber: String): String {
-        return cardNumber.chunked(4).joinToString(" ")
     }
 }
 
